@@ -1,0 +1,11 @@
+.idea
+web/.htaccess
+composer.phar
+composer.lock
+resources/propel/conf/
+resources/propel/sql/
+resources/propel/runtime-conf.xml
+resources/bin/bootstrap
+src/PayMeBack/Model/om/
+src/PayMeBack/Model/map/
+vendor

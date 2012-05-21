@@ -1,0 +1,33 @@
+#page_header {
+    padding     : 40px 0;
+    text-align  : center;
+}
+
+#page_header h1 {
+    font-size: 54px;
+}
+
+.user_data {
+    padding-top: 10px;
+}
+.user_data h1 {
+    text-align      : center;
+    margin-bottom   : 10px;
+}
+
+.nav {
+    margin-bottom: 0;
+}
+.nav-tabs {
+    border-bottom: none;
+}
+ul.nav-tabs {
+    margin: 0 0 -3px 5px;
+}
+.nav-tabs > li > a:hover {
+  border-color: #eeeeee #eeeeee;
+}
+
+#resume {
+    margin-bottom: 50px;
+}

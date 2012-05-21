@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<database name="paymeback" namespace="PayMeBack\Model" defaultIdMethod="native">
+    <table name="user">
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="name" type="varchar" size="255" required="true" />
+    </table>
+    <table name="spending">
+        <behavior name="timestampable" />
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="description" type="varchar" size="255" required="true" />
+        <column name="amount" type="integer" required="true" />
+        <column name="category_id" type="integer" required="true" />
+        <column name="user_id" type="integer" required="true" />
+        <foreign-key name="fk_spending_category_id" foreignTable="spending_category">
+            <reference local="category_id" foreign="id"/>
+        </foreign-key>
+        <foreign-key name="fk_spending_user_id" foreignTable="user">
+            <reference local="user_id" foreign="id"/>
+        </foreign-key>
+    </table>
+    <table name="spending_category">
+        <behavior name="timestampable" />
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="title" type="varchar" size="255" required="true" />
+    </table>
+    <table name="advance">
+        <behavior name="timestampable" />
+        <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
+        <column name="description" type="varchar" size="255" required="true" />
+        <column name="amount" type="integer" required="true" />
+        <column name="user_id" type="integer" required="true" />
+        <foreign-key name="fk_advance_user_id" foreignTable="user">
+            <reference local="user_id" foreign="id"/>
+        </foreign-key>
+    </table>
+</database>

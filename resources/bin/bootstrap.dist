@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+CURRENT_DIR=`pwd`
+
+export PHP_CLASSPATH="$CURRENT_DIR/vendor/phing/phing/classes"
+$CURRENT_DIR/vendor/propel/propel1/generator/bin/propel-gen resources/propel main
+
+echo 'Creating database...'
+mysql -uroot -p -e 'CREATE DATABASE %DATABASE%'
+
+echo 'Creating database structure...'
+mysql -uroot -p %DATABASE% < $CURRENT_DIR/resources/propel/sql/PayMeBack.Model.schema.sql

@@ -1,0 +1,99 @@
+<div class="span6 well user_data">
+    <h1>{{ user.name }}</h1>
+    <table class="table table-bordered table-condensed">
+        <caption>Dépenses</caption>
+        <thead>
+            <tr>
+                <th>Catégorie</th>
+                <th>Montant</th>
+                <th style="width: 22%">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for category in categories %}
+                <tr>
+                    <td>{{ category.title }}</td>
+                    <td>&#8364;</td>
+                    <td>
+                        <a class="btn btn-success btn-mini btn_modal" href="#add_spending" data-toggle="modal">
+                            <i class="icon-plus icon-white"></i>
+                        </a>
+                        <a class="btn btn-danger btn-mini btn_modal" href="#delete_category" data-toggle="modal">
+                            <i class="icon-trash icon-white"></i>
+                        </a>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="3">
+                        <table class="table table-bordered table-condensed">
+                            <thead>
+                                <tr>
+                                    <th>Description</th>
+                                    <th>Montant</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for spending in category.spendingsForUser(user.id) %}
+                                    <tr>
+                                        <td>{{ spending.description }}</td>
+                                        <td>{{ spending.amount }}&#8364;</td>
+                                        <td>
+                                            <a class="btn btn-danger btn-mini btn-mini btn_modal" href="#delete_spending" data-toggle="modal">
+                                                <i class="icon-trash icon-white"></i>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr><td colspan="3">Aucune dépense.</td></tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3">Aucune catégorie.</td></tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total</th>
+                <td colspan="2">100&#8364;</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <table class="table table-bordered table-condensed"">
+        <caption>
+            Avances
+            <a class="btn btn-success btn-mini btn_modal" href="#add_advance" data-toggle="modal">
+                <i class="icon-plus icon-white"></i>
+            </a>
+        </caption>
+        <thead>
+            <th>Description</th>
+            <th>Montant</th>
+        </thead>
+        <tbody>
+            {% for advance in user.advances %}
+                <tr>
+                    <td>{{ advance.description }}</td>
+                    <td>{{ advance.amount }}&#8364;</td>
+                    <td>
+                        <a class="btn btn-danger btn-mini btn-mini btn_modal" href="#delete_advance" data-toggle="modal">
+                            <i class="icon-trash icon-white"></i>
+                        </a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr><td colspan="3">Aucune avance.</td></tr>
+            {% endfor %}
+        </tbody>
+        <tfoot>
+            <tr>
+                <th>Total</th>
+                <td colspan="2">&#8364;</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>

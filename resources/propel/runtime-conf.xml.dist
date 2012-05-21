@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <propel>
+        <datasources default="paymeback">
+            <datasource id="paymeback">
+                <adapter>mysql</adapter>
+                <connection>
+                    <dsn>mysql:host=%HOST%;dbname=%DBNAME%</dsn>
+                    <user>%USER%</user>
+                    <password>%PASSWORD%</password>
+                    <settings>
+                        <setting id="charset">utf8</setting>
+                    </settings>
+                </connection>
+            </datasource>
+        </datasources>
+    </propel>
+</config>

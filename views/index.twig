@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>PayMeBack</title>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <meta name="description" content="Manage account between two persons">
+        <meta name="author" content="Maxime AILLOUD">
+
+        <link href="{{ app.request.basepath }}/assets/css/bootstrap.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/assets/css/bootstrap-responsive.css" rel="stylesheet">
+        <link href="{{ app.request.basepath }}/assets/css/style.css" rel="stylesheet">
+
+        <link rel="shortcut icon" href="{{ app.request.basepath }}/assets/img/favicon.ico">
+    </head>
+
+    <body class="container-fluid">
+
+        <header id="page_header" class="row-fluid">
+            <h1>PayMeBack</h1>
+        </header>
+        <div class="row-fluid">
+            <aside class="span2">
+                <div class="accordion" id="accordion2">
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">2014</a>
+                        </div>
+                        <div id="collapseOne" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <ul class="nav nav-list">
+                                    <li><a href="#">Janvier</a></li>
+                                    <li><a href="#">Février</a></li>
+                                    <li><a href="#">Mars</a></li>
+                                    <li><a href="#">Avril</a></li>
+                                    <li class="active"><a href="#">Mai</a></li>
+                                    <li><a href="#">Juin</a></li>
+                                    <li><a href="#">Juillet</a></li>
+                                    <li><a href="#">Août</a></li>
+                                    <li><a href="#">Septembre</a></li>
+                                    <li><a href="#">Octobre</a></li>
+                                    <li><a href="#">Novembre</a></li>
+                                    <li><a href="#">Décembre</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">2013</a>
+                        </div>
+                        <div id="collapseTwo" class="accordion-body collapse">
+                            <div class="accordion-inner">
+                                <ul class="nav nav-list">
+                                    <li><a href="#">Janvier</a></li>
+                                    <li><a href="#">Février</a></li>
+                                    <li><a href="#">Mars</a></li>
+                                    <li><a href="#">Avril</a></li>
+                                    <li class="active"><a href="#">Mai</a></li>
+                                    <li><a href="#">Juin</a></li>
+                                    <li><a href="#">Juillet</a></li>
+                                    <li><a href="#">Août</a></li>
+                                    <li><a href="#">Septembre</a></li>
+                                    <li><a href="#">Octobre</a></li>
+                                    <li><a href="#">Novembre</a></li>
+                                    <li><a href="#">Décembre</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-group">
+                        <div class="accordion-heading">
+                            <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseThree">2012</a>
+                        </div>
+                        <div id="collapseThree" class="accordion-body collapse in">
+                            <div class="accordion-inner">
+                                <ul class="nav nav-list">
+                                    <li><a href="#">Janvier</a></li>
+                                    <li><a href="#">Février</a></li>
+                                    <li><a href="#">Mars</a></li>
+                                    <li><a href="#">Avril</a></li>
+                                    <li class="active"><a href="#">Mai</a></li>
+                                    <li><a href="#">Juin</a></li>
+                                    <li><a href="#">Juillet</a></li>
+                                    <li><a href="#">Août</a></li>
+                                    <li><a href="#">Septembre</a></li>
+                                    <li><a href="#">Octobre</a></li>
+                                    <li><a href="#">Novembre</a></li>
+                                    <li><a href="#">Décembre</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </aside>
+            <section class="span10">
+                <section class="row-fluid">
+                    <div class="span12">
+                        <form action="" class="form-inline well" method="post" accept-charset="utf-8">
+                            <input placeholder="Ajouter une catégorie" type="text" />
+                            <input type="submit" class="btn" value="Ajouter" />
+                        </form>
+                        <div class="row-fluid">
+                            {% for user in users %}
+                                {% include "user-spending.twig" %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </section>
+                <section class="well" id="resume">
+                    {% include "resume-spending.twig" %}
+                </section>
+            </section>
+        </div>
+
+        <div id="delete_category" class="modal hide fade">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Supprimer une catégorie</h3>
+            </div>
+            <div class="modal-body">
+                <p>
+                    Etes-vous sûr de vouloir supprimer la catégorie <b>Carrefour</b>?<br />
+                    Les dépenses associées à cette catégorie seront également supprimées!
+                </p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-danger delete_category_submit">Yes</a>
+                <a href="#" class="btn" data-dismiss="modal">No</a>
+            </div>
+        </div>
+
+        <div id="delete_spending" class="modal hide fade">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Supprimer une dépense</h3>
+            </div>
+            <div class="modal-body">
+                <p>Etes-vous sûr de vouloir supprimer la dépense <span id="spending_description_to_delete">bidule</span>?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-danger delete_expense_submit">Oui</a>
+                <a href="#" class="btn" data-dismiss="modal">Non</a>
+            </div>
+        </div>
+
+        <div id="add_spending" class="modal fade">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Ajout d'une dépense</h3>
+            </div>
+            <div class="modal-body">
+                <ul>
+                    <li>Catégorie : <span id="categrory_name">Carrefour</span></li>
+                    <li>Période : <span id="category_periode">Mai 2012</span></li>
+                </ul>
+                <div class="expense_form_errors alert alert-danger" style="display:none"></div>
+                <form id="add_spending_form" action="" method="post">
+                    <label for="spending_amount">Montant :</label>
+                    <input type="text" name="amount" id="spending_amount" required="required" /><br />
+                    <label for="spending_description">Description :</label>
+                    <textarea name="description" id="spending_description" rows="5"></textarea><br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" id="add_spending_submit">Ajouter</a>
+                <a href="#" class="btn" data-dismiss="modal">Annuler</a>
+            </div>
+        </div>
+
+        <div id="delete_advance" class="modal hide fade">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Supprimer une avance</h3>
+            </div>
+            <div class="modal-body">
+                <p>Etes-vous sûr de vouloir supprimer l'avance <span id="advance_description_to_delete">chose</span>?</p>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-danger delete_advance_submit">Oui</a>
+                <a href="#" class="btn" data-dismiss="modal">Non</a>
+            </div>
+        </div>
+
+        <div id="add_advance" class="modal fade">
+            <div class="modal-header">
+                <a class="close" data-dismiss="modal">×</a>
+                <h3>Ajout d'une avance</h3>
+            </div>
+            <div class="modal-body">
+                <div class="advance_form_errors alert alert-danger" style="display:none"></div>
+                <form id="add_advance_form" action="" method="post">
+                    <label for="advance_amount">Montant :</label>
+                    <input type="text" name="amount" id="advance_amount" required="required" /><br />
+                    <label for="advance_description">Description :</label>
+                    <textarea name="description" id="advance_description" rows="5"></textarea><br />
+                </form>
+            </div>
+            <div class="modal-footer">
+                <a href="#" class="btn btn-primary" id="add_advance_submit">Ajouter</a>
+                <a href="#" class="btn" data-dismiss="modal">Annuler</a>
+            </div>
+        </div>
+
+        <script src="{{ app.request.basepath }}/assets/js/jquery.js"></script>
+        <script src="{{ app.request.basepath }}/assets/js/bootstrap.min.js"></script>
+        <script src="{{ app.request.basepath }}/assets/js/application.js"></script>
+
+    </body>
+</html>
+
+
+
