@@ -16,6 +16,59 @@ use PayMeBack\Model\om\BaseUserPeer;
  *
  * @package    propel.generator.PayMeBack.Model
  */
-class UserPeer extends BaseUserPeer {
+class UserPeer extends BaseUserPeer
+{
+    /**
+     * @static
+     * @param int $userId
+     * @param \Criteria|null $criteria
+     * @param null|\PropelPDO $con
+     * @return int|null
+     */
+    public static function getTotalSpendings($userId, \Criteria $criteria = null, \PropelPDO $con = null)
+    {
+        $total = 0;
 
+        $spendings = SpendingQuery::create()
+            ->filterByUserId($userId)
+            ->withColumn('SUM(' . SpendingPeer::AMOUNT. ')', 'Sum')
+            ->select(array('Sum'))
+            ->findOne($con)
+        ;
+
+        $total = $spendings;
+        if(null === $total)
+        {
+            $total = 0;
+        }
+
+        return $total;
+    }
+
+    /**
+     * @static
+     * @param int $userId
+     * @param \Criteria|null $criteria
+     * @param null|\PropelPDO $con
+     * @return int|null
+     */
+    public static function getTotalAdvances($userId, \Criteria $criteria = null, \PropelPDO $con = null)
+    {
+        $total = 0;
+
+        $spendings = AdvanceQuery::create()
+            ->filterByUserId($userId)
+            ->withColumn('SUM(' . AdvancePeer::AMOUNT. ')', 'Sum')
+            ->select(array('Sum'))
+            ->findOne($con)
+        ;
+
+        $total = $spendings;
+        if(null === $total)
+        {
+            $total = 0;
+        }
+
+        return $total;
+    }
 } // UserPeer

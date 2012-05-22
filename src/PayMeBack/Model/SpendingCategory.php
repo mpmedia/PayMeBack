@@ -16,15 +16,28 @@ use PayMeBack\Model\om\BaseSpendingCategory;
  *
  * @package    propel.generator.PayMeBack.Model
  */
-class SpendingCategory extends BaseSpendingCategory {
-
-    public function getSpendingsForUser($id)
+class SpendingCategory extends BaseSpendingCategory
+{
+    /**
+     * @param int $userId
+     * @param \Criteria|null $criteria
+     * @param null|\PropelPDO $con
+     * @return array|mixed|\PropelObjectCollection
+     */
+    public function getAmountForUser($userId, \Criteria $criteria = null, \PropelPDO $con = null)
     {
-        return SpendingQuery::create()
-            ->filterById($this->id)
-            ->filterByUserId($id)
-            ->find()
-        ;
+        return SpendingCategoryPeer::getAmountForUser($this->id, $userId, $criteria, $con);
+    }
+
+    /**
+     * @param int $userId
+     * @param \Criteria|null $criteria
+     * @param null|\PropelPDO $con
+     * @return array|mixed|\PropelObjectCollection
+     */
+    public function getSpendingsForUser($userId, \Criteria $criteria = null, \PropelPDO $con = null)
+    {
+        return SpendingCategoryPeer::getSpendingsByUserId($this->id, $userId, $criteria, $con);
     }
 
 } // SpendingCategory

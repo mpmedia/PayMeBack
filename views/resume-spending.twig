@@ -2,32 +2,30 @@
 <table class="table table-bordered table-condensed">
     <thead>
         <tr>
-            <th colspan="2" style="text-align: center">Dépenses</th>
+            <th></th>
+        {% for user in users %}
+            <th>{{ user.name }}</th>
+        {% else %}
+            <td colspan="2">Aucun utilisateur</td>
         </tr>
-        <tr>
-            <th>Utilisateur</th>
-            <th>Montant</th>
-        </tr>
+        {% endfor %}
     </thead>
     <tbody>
         <tr>
-            <td>Marion</td>
-            <td>118&#8364;</td>
+            <td>Dépenses</td>
+        {% for user in users %}
+            <td>{{ user.totalSpendings }}&#8364;</td>
+        {% else %}
+            <td colspan="2">Aucun utilisateur</td>
+        {% endfor %}
         </tr>
         <tr>
-            <td>Maxime</td>
-            <td>100&#8364;</td>
-        </tr>
-        <tr>
-            <th colspan="2" style="text-align: center">Avances</th>
-        </tr>
-        <tr>
-            <td>Marion</td>
-            <td>51&#8364;</td>
-        </tr>
-        <tr>
-            <td>Maxime</td>
-            <td>93&#8364;</td>
+            <td>Avances</td>
+        {% for user in users %}
+            <td>{{ user.totalAdvances }}&#8364;</td>
+        {% else %}
+            <td colspan="2">Aucun utilisateur</td>
+        {% endfor %}
         </tr>
     </tbody>
 </table>

@@ -13,7 +13,7 @@
             {% for category in categories %}
                 <tr>
                     <td>{{ category.title }}</td>
-                    <td>&#8364;</td>
+                    <td>{{ category.amountForUser(user.id) }}&#8364;</td>
                     <td>
                         <a class="btn btn-success btn-mini btn_modal" href="#add_spending" data-toggle="modal">
                             <i class="icon-plus icon-white"></i>
@@ -58,7 +58,7 @@
         <tfoot>
             <tr>
                 <th>Total</th>
-                <td colspan="2">100&#8364;</td>
+                <td colspan="2">{{ user.totalSpendings}}&#8364;</td>
             </tr>
         </tfoot>
     </table>
@@ -92,7 +92,7 @@
         <tfoot>
             <tr>
                 <th>Total</th>
-                <td colspan="2">&#8364;</td>
+                <td colspan="2">{{ user.totalAdvances }}&#8364;</td>
             </tr>
         </tfoot>
     </table>

@@ -16,6 +16,25 @@ use PayMeBack\Model\om\BaseUser;
  *
  * @package    propel.generator.PayMeBack.Model
  */
-class User extends BaseUser {
+class User extends BaseUser
+{
+    /**
+     * @param \Criteria|null $criteria
+     * @param null|\PropelPDO $con
+     * @return array|mixed|\PropelObjectCollection
+     */
+    public function getTotalSpendings(\Criteria $criteria = null, \PropelPDO $con = null)
+    {
+        return UserPeer::getTotalSpendings($this->id, $criteria, $con);
+    }
 
+    /**
+     * @param \Criteria|null $criteria
+     * @param null|\PropelPDO $con
+     * @return array|mixed|\PropelObjectCollection
+     */
+    public function getTotalAdvances(\Criteria $criteria = null, \PropelPDO $con = null)
+    {
+        return UserPeer::getTotalAdvances($this->id, $criteria, $con);
+    }
 } // User
