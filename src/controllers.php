@@ -166,9 +166,20 @@ $app
 ;
 
 $app->post('/add_category', function (Request $request) use($app) {
-    $spendingCategory = new \PayMeBack\Model\SpendingCategory();
-    $spendingCategory->setTitle($app['request']->get('category_title'));
-    $spendingCategory->save();
+    $app['session']->start();
+
+    try
+    {
+        $spendingCategory = new \PayMeBack\Model\SpendingCategory();
+        $spendingCategory->setTitle($app['request']->get('category_title'));
+        $spendingCategory->save();
+
+        $app['session']->setFlash('success', 'Catégorie crée avec succès');
+    }
+    catch(\Exception $exception)
+    {
+        $app['session']->setFlash('error', 'Erreur lors de l\'ajout de la catégorie');
+    }
 
     return $app->redirect($app['url_generator']->generate('homepage'));
 });

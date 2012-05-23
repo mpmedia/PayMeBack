@@ -22,6 +22,7 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
 
 $app->register(new Silex\Provider\UrlGeneratorServiceProvider());
 $app->register(new Silex\Provider\SymfonyBridgesServiceProvider());
+$app->register(new Silex\Provider\SessionServiceProvider());
 
 if(in_array(@$_SERVER['REMOTE_ADDR'], array(
     '127.0.0.1',
