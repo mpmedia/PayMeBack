@@ -15,6 +15,12 @@
                     <td>{{ category.title }}</td>
                     <td>{{ category.amount }}&#8364;</td>
                     <td>
+                        <button class="btn btn-success btn-mini btn_modal" rel="tooltip" title="Ajouter une dépense à la catégorie" id="add_spending_user">
+                            <i class="icon-plus icon-white"></i>
+                        </button>
+                        <button class="btn btn-danger btn-mini btn_modal delete_category" rel="tooltip" title="Supprimer la catégorie" data-placement="bottom">
+                            <i class="icon-trash icon-white"></i>
+                        </button>
                         <a class="btn btn-success btn-mini btn_modal" href="#add_spending" data-toggle="modal">
                             <i class="icon-plus icon-white"></i>
                         </a>
@@ -23,6 +29,7 @@
                         </a>
                     </td>
                 </tr>
+                {% include "add_spending_form.twig" %}
                 <tr>
                     <td colspan="3">
                         <table class="table table-bordered table-condensed">

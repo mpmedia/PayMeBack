@@ -98,8 +98,8 @@
             <section class="span10">
                 <section class="row-fluid">
                     <div class="span12">
-                        <form action="" class="form-inline well" method="post" accept-charset="utf-8">
-                            <input placeholder="Ajouter une catégorie" type="text" />
+                        <form action="{{ app.request.basepath }}/add_category" class="form-inline well" method="post" accept-charset="utf-8">
+                            <input placeholder="Ajouter une catégorie" type="text" name="category_title" required="required" />
                             <input type="submit" class="btn" value="Ajouter" />
                         </form>
                         <div class="row-fluid">

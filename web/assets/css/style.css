@@ -31,3 +31,7 @@ ul.nav-tabs {
 #resume {
     margin-bottom: 50px;
 }
+
+.new_spending {
+    display: none;
+}

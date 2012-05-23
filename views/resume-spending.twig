@@ -29,4 +29,13 @@
         </tr>
     </tbody>
 </table>
-<h1>Marion doit <a href="#" rel="popover" data-content="Dépenses :<br />118-100=9/2=9 -> Maxime doit 9&#8364; à Marion<br />Avances :<br />93-51=42 -> Marion doit 42&#8364; à Maxime<br />Total :<br />42-9=33 -> Marion doit 33&#8364; à Maxime" data-original-title="Détail du calcul" data-placement="top">33&#8364;</a> à Maxime.</h1>
+<p>
+    <h3>Dépenses :</h3><br />{{ spendingCalcul.high.amount }}-{{ spendingCalcul.low.amount }}={{ spendingCalcul.interResult }}/2={{ spendingCalcul.result }} -> {{ spendingCalcul.low.name }} doit {{ spendingCalcul.result }}&#8364; à {{ spendingCalcul.high.name }}<br />
+    <h3>Avances :</h3><br />{{ advanceCalcul.high.amount }}-{{ advanceCalcul.low.amount }}={{ advanceCalcul.result }} -> {{ advanceCalcul.low.name }} doit {{ advanceCalcul.result }}&#8364; à {{ advanceCalcul.high.name }}<br />
+    <h3>Total :</h3><br />
+    {% if finalCalcul is null %}
+    Le compte est bon.
+    {% else %}
+    {{ finalCalcul.high.amount }}-{{ finalCalcul.low.amount }}={{ finalCalcul.result }} -> {{ finalCalcul.high.name }} doit {{ finalCalcul.result }}&#8364; à {{ finalCalcul.low.name }}
+    {% endif %}
+</p>

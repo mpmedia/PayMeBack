@@ -1,8 +1,7 @@
 $(function () {
-    $("a[rel=popover]")
-        .popover()
-        .click(function(e) {
-            e.preventDefault()
-        })
-    ;
+    $("button[rel=tooltip]").tooltip();
+
+    $('#add_spending_user1').on('click', function() {
+        $('.new_spending').show();
+    });
 });
