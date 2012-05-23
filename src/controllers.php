@@ -5,9 +5,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 $app
     ->get('/', function() use($app) {
-        $users = \PayMeBack\Model\UserQuery::create()
-            ->find()
-        ;
         $categories = \PayMeBack\Model\SpendingCategoryQuery::create()
             ->find()
         ;
@@ -25,22 +22,27 @@ $app
         $datas = array();
         foreach($dbDatas as $user)
         {
-            $datas['users'][$user['Id']] = array(
+            $userId = $user['Id'];
+
+            $datas['users'][$userId] = array(
                 'name'       => $user['Name'],
+                'totalSpendings' => \PayMeBack\Model\UserPeer::getTotalSpendings($userId),
+                'totalAdvances' => \PayMeBack\Model\UserPeer::getTotalAdvances($userId),
                 'categories' => array()
             );
 
-            $userId = $user['Id'];
-
             foreach($categories as $category)
             {
-                $datas['users'][$userId]['categories'][$category->getId()] = array(
+                $categoryId = $category->getId();
+
+                $datas['users'][$userId]['categories'][$categoryId] = array(
                     'title'     => $category->getTitle(),
+                    'amount'    => \PayMeBack\Model\SpendingCategoryPeer::getAmountForUser($categoryId, $userId),
                     'spendings' => array()
                 );
             }
 
-            foreach($user['Spendings'] as $spending)
+            foreach($user['spendings'] as $spending)
             {
                 $datas['users'][$userId]['categories'][$spending['SpendingCategory']['Id']]['spendings'][$spending['Id']] = array(
                     'description' => $spending['Description'],
@@ -57,17 +59,8 @@ $app
             }
         }
 
-//    echo "<pre>";
-//    var_dump($dbDatas[0]);
-//    echo "</pre>" . PHP_EOL;
-    echo "<pre>";
-    var_dump($datas);
-    echo "</pre>" . PHP_EOL;
-    die("FFFFFUUUUUCCCCCKKKKK" . PHP_EOL);
-
         return $app['twig']->render('index.twig', array(
-            'users'      => $users,
-            'categories' => $categories
+            'datas'      => $datas
         ));
     })
     ->bind('homepage')

@@ -103,7 +103,7 @@
                             <input type="submit" class="btn" value="Ajouter" />
                         </form>
                         <div class="row-fluid">
-                            {% for user in users %}
+                            {% for userId, user in datas.users %}
                                 {% include "user-spending.twig" %}
                             {% endfor %}
                         </div>

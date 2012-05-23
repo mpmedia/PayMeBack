@@ -3,7 +3,7 @@
     <thead>
         <tr>
             <th></th>
-        {% for user in users %}
+        {% for user in datas.users %}
             <th>{{ user.name }}</th>
         {% else %}
             <td colspan="2">Aucun utilisateur</td>
@@ -13,7 +13,7 @@
     <tbody>
         <tr>
             <td>Dépenses</td>
-        {% for user in users %}
+        {% for user in datas.users %}
             <td>{{ user.totalSpendings }}&#8364;</td>
         {% else %}
             <td colspan="2">Aucun utilisateur</td>
@@ -21,7 +21,7 @@
         </tr>
         <tr>
             <td>Avances</td>
-        {% for user in users %}
+        {% for user in datas.users %}
             <td>{{ user.totalAdvances }}&#8364;</td>
         {% else %}
             <td colspan="2">Aucun utilisateur</td>
