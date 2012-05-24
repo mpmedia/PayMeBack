@@ -53,7 +53,7 @@ $app
                 );
             }
 
-            foreach($user['spendings'] as $spending)
+            foreach($user['Spendings'] as $spending)
             {
                 $datas['users'][$userId]['categories'][$spending['SpendingCategory']['Id']]['spendings'][$spending['Id']] = array(
                     'description' => $spending['Description'],
@@ -165,24 +165,69 @@ $app
     ->bind('homepage')
 ;
 
-$app->post('/add_category', function (Request $request) use($app) {
-    $app['session']->start();
+$app
+    ->post('/add_category', function (Request $request) use($app) {
+        $app['session']->start();
 
-    try
+        try
+        {
+            $spendingCategory = new \PayMeBack\Model\SpendingCategory();
+            $spendingCategory
+                ->setTitle($app['request']->get('category_title'))
+                ->save()
+            ;
+
+            $app['session']->setFlash('success', 'Catégorie crée avec succès');
+        }
+        catch(\Exception $exception)
+        {
+            $app['session']->setFlash('error', 'Erreur lors de l\'ajout de la catégorie');
+        }
+
+        return $app->redirect($app['url_generator']->generate('homepage'));
+    })
+    ->bind('add_category')
+;
+
+$userProvider = function ($id) {
+    $user = \PayMeBack\Model\UserQuery::create()->findOneById($id);
+
+    if(null === $user)
     {
-        $spendingCategory = new \PayMeBack\Model\SpendingCategory();
-        $spendingCategory->setTitle($app['request']->get('category_title'));
-        $spendingCategory->save();
-
-        $app['session']->setFlash('success', 'Catégorie crée avec succès');
+        throw new \Exception('User missing to create a spending.');
     }
-    catch(\Exception $exception)
+
+    return $user;
+};
+
+$spendingCategoryProvider = function ($id) {
+    $spendingCategory = \PayMeBack\Model\SpendingCategoryQuery::create()->findOneById($id);
+
+    if(null === $spendingCategory)
     {
-        $app['session']->setFlash('error', 'Erreur lors de l\'ajout de la catégorie');
+        throw new \Exception('Category missing to create a spending.');
     }
 
-    return $app->redirect($app['url_generator']->generate('homepage'));
-});
+    return $spendingCategory;
+};
+
+$app
+    ->post('/add_spending/{user}/{category}', function (Request $request, \PayMeBack\Model\User $user, \PayMeBack\Model\SpendingCategory $category) use($app) {
+        $spending = new \PayMeBack\Model\Spending();
+        $spending
+            ->setDescription($app['request']->get('spending_description'))
+            ->setAmount($app['request']->get('spending_amount'))
+            ->setSpendingCategory($category)
+            ->setUser($user)
+            ->save()
+        ;
+
+        return $app->redirect($app['url_generator']->generate('homepage'));
+    })
+    ->bind('add_spending')
+    ->convert('user', $userProvider)
+    ->convert('category', $spendingCategoryProvider)
+;
 
 // Error Handler
 $app->error(function(\Exception $e, $code) use($app) {

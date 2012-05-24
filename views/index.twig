@@ -109,7 +109,7 @@
                                 {{ flashMessage }}
                             </div>
                         {% endfor %}
-                        <form action="{{ app.request.basepath }}/add_category" class="form-inline well" method="post" accept-charset="utf-8">
+                        <form action="{{ path('add_category') }}" class="form-inline well" method="post" accept-charset="utf-8">
                             <input placeholder="Ajouter une catégorie" type="text" name="category_title" required="required" />
                             <input type="submit" class="btn" value="Ajouter" />
                         </form>
@@ -154,30 +154,6 @@
             <div class="modal-footer">
                 <a href="#" class="btn btn-danger delete_expense_submit">Oui</a>
                 <a href="#" class="btn" data-dismiss="modal">Non</a>
-            </div>
-        </div>
-
-        <div id="add_spending" class="modal fade">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">×</a>
-                <h3>Ajout d'une dépense</h3>
-            </div>
-            <div class="modal-body">
-                <ul>
-                    <li>Catégorie : <span id="categrory_name">Carrefour</span></li>
-                    <li>Période : <span id="category_periode">Mai 2012</span></li>
-                </ul>
-                <div class="expense_form_errors alert alert-danger" style="display:none"></div>
-                <form id="add_spending_form" action="" method="post">
-                    <label for="spending_amount">Montant :</label>
-                    <input type="text" name="amount" id="spending_amount" required="required" /><br />
-                    <label for="spending_description">Description :</label>
-                    <textarea name="description" id="spending_description" rows="5"></textarea><br />
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-primary" id="add_spending_submit">Ajouter</a>
-                <a href="#" class="btn" data-dismiss="modal">Annuler</a>
             </div>
         </div>
 
