@@ -126,73 +126,9 @@
             </section>
         </div>
 
-        <div id="delete_category" class="modal hide fade">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">×</a>
-                <h3>Supprimer une catégorie</h3>
-            </div>
-            <div class="modal-body">
-                <p>
-                    Etes-vous sûr de vouloir supprimer la catégorie <b>Carrefour</b>?<br />
-                    Les dépenses associées à cette catégorie seront également supprimées!
-                </p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-danger delete_category_submit">Yes</a>
-                <a href="#" class="btn" data-dismiss="modal">No</a>
-            </div>
-        </div>
-
-        <div id="delete_spending" class="modal hide fade">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">×</a>
-                <h3>Supprimer une dépense</h3>
-            </div>
-            <div class="modal-body">
-                <p>Etes-vous sûr de vouloir supprimer la dépense <span id="spending_description_to_delete">bidule</span>?</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-danger delete_expense_submit">Oui</a>
-                <a href="#" class="btn" data-dismiss="modal">Non</a>
-            </div>
-        </div>
-
-        <div id="delete_advance" class="modal hide fade">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">×</a>
-                <h3>Supprimer une avance</h3>
-            </div>
-            <div class="modal-body">
-                <p>Etes-vous sûr de vouloir supprimer l'avance <span id="advance_description_to_delete">chose</span>?</p>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-danger delete_advance_submit">Oui</a>
-                <a href="#" class="btn" data-dismiss="modal">Non</a>
-            </div>
-        </div>
-
-        <div id="add_advance" class="modal fade">
-            <div class="modal-header">
-                <a class="close" data-dismiss="modal">×</a>
-                <h3>Ajout d'une avance</h3>
-            </div>
-            <div class="modal-body">
-                <div class="advance_form_errors alert alert-danger" style="display:none"></div>
-                <form id="add_advance_form" action="" method="post">
-                    <label for="advance_amount">Montant :</label>
-                    <input type="text" name="amount" id="advance_amount" required="required" /><br />
-                    <label for="advance_description">Description :</label>
-                    <textarea name="description" id="advance_description" rows="5"></textarea><br />
-                </form>
-            </div>
-            <div class="modal-footer">
-                <a href="#" class="btn btn-primary" id="add_advance_submit">Ajouter</a>
-                <a href="#" class="btn" data-dismiss="modal">Annuler</a>
-            </div>
-        </div>
-
         <script src="{{ app.request.basepath }}/assets/js/jquery.js"></script>
         <script src="{{ app.request.basepath }}/assets/js/bootstrap.min.js"></script>
+        <script src="{{ app.request.basepath }}/assets/js/confirmDelete.js"></script>
         <script src="{{ app.request.basepath }}/assets/js/application.js"></script>
 
     </body>

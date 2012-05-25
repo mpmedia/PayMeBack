@@ -11,10 +11,10 @@ $app
         ;
 
         $dbDatas = \PayMeBack\Model\UserQuery::create()
-            ->joinWith('Spending')
-            ->joinWith('Advance')
-            ->useSpendingQuery()
-                ->joinWith('SpendingCategory')
+            ->joinWith('Spending', \Criteria::LEFT_JOIN)
+            ->joinWith('Advance', \Criteria::LEFT_JOIN)
+            ->useSpendingQuery(null, \Criteria::LEFT_JOIN)
+                ->joinWith('SpendingCategory', \Criteria::LEFT_JOIN)
             ->endUse()
             ->find()
             ->toArray()
@@ -39,7 +39,8 @@ $app
                 'name'           => $user['Name'],
                 'totalSpendings' => $totalSpending,
                 'totalAdvances'  => $totalAdvance,
-                'categories' => array()
+                'categories'     => array(),
+                'advances'       => array()
             );
 
             foreach($categories as $category)
@@ -60,6 +61,8 @@ $app
                     'amount'      => $spending['Amount']
                 );
             }
+
+            $datas['users'][$userId]['advances'] = array();
 
             foreach($user['Advances'] as $advance)
             {
@@ -194,7 +197,7 @@ $userProvider = function ($id) {
 
     if(null === $user)
     {
-        throw new \Exception('User missing to create a spending.');
+        throw new \Exception('User can\'t be retrieve.');
     }
 
     return $user;
@@ -205,14 +208,36 @@ $spendingCategoryProvider = function ($id) {
 
     if(null === $spendingCategory)
     {
-        throw new \Exception('Category missing to create a spending.');
+        throw new \Exception('Category can\'t be retrieve.');
     }
 
     return $spendingCategory;
 };
 
+$spendingProvider = function ($id) {
+    $spending = \PayMeBack\Model\SpendingQuery::create()->findOneById($id);
+
+    if(null === $spending)
+    {
+        throw new \Exception('Spending can\'t be retrieve.');
+    }
+
+    return $spending;
+};
+
+$advanceProvider = function ($id) {
+    $advance = \PayMeBack\Model\AdvanceQuery::create()->findOneById($id);
+
+    if(null === $advance)
+    {
+        throw new \Exception('Advance can\'t be retrieve.');
+    }
+
+    return $advance;
+};
+
 $app
-    ->post('/add_spending/{user}/{category}', function (Request $request, \PayMeBack\Model\User $user, \PayMeBack\Model\SpendingCategory $category) use($app) {
+    ->get('/add_spending/{user}/{category}', function (Request $request, \PayMeBack\Model\User $user, \PayMeBack\Model\SpendingCategory $category) use($app) {
         $spending = new \PayMeBack\Model\Spending();
         $spending
             ->setDescription($app['request']->get('spending_description'))
@@ -227,6 +252,42 @@ $app
     ->bind('add_spending')
     ->convert('user', $userProvider)
     ->convert('category', $spendingCategoryProvider)
+;
+
+$app
+    ->get('/add_advance/{user}', function (Request $request, \PayMeBack\Model\User $user) use($app) {
+        $advance = new \PayMeBack\Model\Advance();
+        $advance
+            ->setDescription($app['request']->get('advance_description'))
+            ->setAmount($app['request']->get('advance_amount'))
+            ->setUser($user)
+            ->save()
+        ;
+
+        return $app->redirect($app['url_generator']->generate('homepage'));
+    })
+    ->bind('add_advance')
+    ->convert('user', $userProvider)
+;
+
+$app
+    ->get('/delete_spending/{spending}', function (Request $request, \PayMeBack\Model\Spending $spending) use($app) {
+        $spending->delete();
+
+        return $app->redirect($app['url_generator']->generate('homepage'));
+    })
+    ->bind('delete_spending')
+    ->convert('spending', $spendingProvider)
+;
+
+$app
+    ->get('/delete_advance/{advance}', function (Request $request, \PayMeBack\Model\Advance $advance) use($app) {
+        $advance->delete();
+
+        return $app->redirect($app['url_generator']->generate('homepage'));
+    })
+    ->bind('delete_advance')
+    ->convert('advance', $advanceProvider)
 ;
 
 // Error Handler

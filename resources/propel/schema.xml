@@ -8,7 +8,7 @@
         <behavior name="timestampable" />
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="description" type="varchar" size="255" required="true" />
-        <column name="amount" type="integer" required="true" />
+        <column name="amount" type="float" required="true" />
         <column name="category_id" type="integer" required="true" />
         <column name="user_id" type="integer" required="true" />
         <foreign-key name="fk_spending_category_id" foreignTable="spending_category">
@@ -27,7 +27,7 @@
         <behavior name="timestampable" />
         <column name="id" type="integer" required="true" primaryKey="true" autoIncrement="true" />
         <column name="description" type="varchar" size="255" required="true" />
-        <column name="amount" type="integer" required="true" />
+        <column name="amount" type="float" required="true" />
         <column name="user_id" type="integer" required="true" />
         <foreign-key name="fk_advance_user_id" foreignTable="user">
             <reference local="user_id" foreign="id"/>
