@@ -21,10 +21,10 @@ Copy resources/bin/bootstrap.dist file to resources/bin/bootstrap and customize 
 Installation
 ------------
 
-1. Go to your project directory and run `git clone https://github.com/maxailloud/ML.git`
+1. Go to your project directory and run `git clone https://github.com/maxailloud/PayMeBack.git`
 2. Download the [`composer.phar`](http://getcomposer.org/composer.phar) executable
 3. Run Composer to get the dependencies: `php composer.phar install`
-4. Run `resources/bin/bootstrap`
+4. Run `chmod +x resources/bin/bootstrap`, `resources/bin/bootstrap` and enter your password when ask
 
 
 License
